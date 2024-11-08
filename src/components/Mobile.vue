@@ -108,9 +108,11 @@ function textl(text) {
 }
 
 function textls(text) { 
+  try {
   let part = text.split("by")
   let part1 = part[0]
   let part2 = part[1]
+  } catch { return text }
   if(part2.length > 15){
   let result = part2.substr(0, 15);
   result = result + " ..."
