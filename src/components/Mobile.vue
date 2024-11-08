@@ -16,7 +16,7 @@
             
         >
             <BCardText>
-                <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
+                <h1 style="color:white;"> {{ textls(PresenceStore.songname) }} </h1>
                 
             </BCardText>
         
@@ -102,6 +102,18 @@ function textl(text) {
   return result 
   }
   return text
+}
+
+function textls(text) { 
+  let part = text.split("by")
+  let part1 = part[0]
+  let part2 = part[1]
+  if(part2.length > 15){
+  let result = part2.substr(0, 15);
+  result = result + " ..."
+  return part1 + "by" + result
+  }
+  return part1 + "by" + part2
 }
     
 onMounted(async () => {
