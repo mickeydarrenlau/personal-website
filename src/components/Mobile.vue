@@ -6,12 +6,12 @@
     <h2 style="color: white;"> About Me</h2>
     <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
-    <div style="display: flex;"> 
+    <div style="display: inline;"> 
         <BCard
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
             :img-alt="PresenceStore.songname"
-            style="max-width: 10rem; background-color: black; color: white;"
+            style="max-width: 20rem; background-color: black; color: white;"
         >
             <BCardText>
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
