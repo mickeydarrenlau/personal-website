@@ -11,7 +11,7 @@
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
             :img-alt="PresenceStore.songname"
-            style="max-width: 20rem; background-color: black; color: white;"
+            style="max-width: 10rem; background-color: black; color: white;"
         >
             <BCardText>
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
