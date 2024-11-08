@@ -6,6 +6,6 @@ export const useTechItems = defineStore('TechItems', {
       ]
      }),
     getters: {
-      items: (state) => state.item,
+      items: (state) => {alert(import.meta.env.PROD);  return state.item},
     }
   })
