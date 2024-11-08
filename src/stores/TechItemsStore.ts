@@ -11,7 +11,7 @@ export const useTechItems = defineStore('TechItems', {
               let items = state.item
               for(let item in items) {
                   item = items[item]
-                  item["img"].replace("src","")
+                  item["img"].replace("/src","")
               }
               return items
           }
