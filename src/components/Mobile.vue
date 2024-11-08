@@ -6,7 +6,8 @@
     <h2 style="color: white;"> About Me</h2>
     <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
-    <div style="display: flex; max-width: 20rem"> 
+    <div style="display: flex; max-width: 20rem">
+        <div>
         <BCard
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
@@ -19,6 +20,8 @@
             </BCardText>
         
     </BCard>
+            </div>
+        <div>
         
         <BCard
         title="Playback History"
@@ -43,6 +46,7 @@
                 
             </BTable>
         </BCard>
+            </div>
 
     </div>
     <h2 style="color: white;">Tech gadgets that I own</h2>
