@@ -6,13 +6,14 @@
     <h2 style="color: white;"> About Me</h2>
     <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
-    <div style="display: flex;">
+    <div class="wrapper">
         <div>
         <BCard
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
             :img-alt="PresenceStore.songname"
-            style=" background-color: black; color: white; flex: 1;"
+            style=" background-color: black; color: white;"
+            class="left"
         >
             <BCardText>
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
@@ -25,7 +26,8 @@
         
         <BCard
         title="Playback History"
-        style="background-color: black; color: white; align-self: right; flex: 1;"
+        style="background-color: black; color: white; align-self: right;"
+        class="right"
         >
                 <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-sm'" responsive>
                 <template #cell(songimg)="row">
@@ -65,6 +67,23 @@
 </BRow>
 </BContainer>
 </template>
+
+<style scoped>
+    .left {
+  width: 70%;
+  display: table-cell;
+}
+.right {
+  width: 29%;
+
+  display: table-cell;
+}
+.wrapper {
+  display: table;
+
+  width: 100%;
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from 'vue';
