@@ -65,7 +65,7 @@
 
 <style scoped>
     .left {
-  width: 20rem;
+  width: 10rem;
   display: table-cell;
 }
 .right {
@@ -92,7 +92,6 @@ const TechItems = useTechItems();
 const PresenceStore = usePresenceStore();
 const TableFieldStore = useTableFieldStore();
 
-window.ll = PresenceStore
 
 const repos = ref([]);
 
