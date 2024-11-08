@@ -22,7 +22,7 @@
         
         <BCard
         title="Playback History"
-        style="background-color: black; color: white; align-self: left;"
+        style="background-color: black; color: white; align-self: right;"
         >
                 <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-lg'" responsive>
                 <template #cell(songimg)="row">
