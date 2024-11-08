@@ -6,6 +6,16 @@ export const useTechItems = defineStore('TechItems', {
       ]
      }),
     getters: {
-      items: (state) => {alert(import.meta.env.PROD);  return state.item},
+      items: (state) => {
+          if(import.meta.env.PROD) {
+              let items = state.item
+              for(let item in items) {
+                  item = items[item]
+                  item["img"].replace("src","")
+              }
+              return items
+          }
+          return state.item
+      },
     }
   })
