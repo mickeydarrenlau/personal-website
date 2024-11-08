@@ -61,8 +61,6 @@
 </BCol>
 </BRow>
 </BContainer>
-
-{{ import.meta.env.PROD }}
 </template>
 
 <script setup>
