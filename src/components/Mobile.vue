@@ -7,13 +7,13 @@
     <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
     <div class="wrapper" style="display: flex;">
-        <div>
+        <div class="left">
         <BCard
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
             :img-alt="PresenceStore.songname"
             style=" background-color: black; color: white;"
-            class="left"
+            
         >
             <BCardText>
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
