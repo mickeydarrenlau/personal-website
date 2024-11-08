@@ -11,7 +11,7 @@ export const useTechItems = defineStore('TechItems', {
           if(import.meta.env.PROD) {
             prefix = "/assets/tech_images/"
           }
-          let items = state.item
+          let items = JSON.parse(JSON.stringify(state.item));
           for(let item in items) {
                   item = items[item]
                   item["img"] = prefix + item["img"]
