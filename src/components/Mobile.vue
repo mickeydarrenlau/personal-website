@@ -49,10 +49,7 @@
     <h2 style="color: white;">Tech gadgets that I own</h2>
     <BTable show-empty :items="TechItems.items" style="width: 95%" :fields="TableFieldStore.tech_field" :table-class="'table-dark .th-lg'" responsive>
         <template #cell(img)="row">
-            <picture>
-    <source :srcset="row.value.replace('src','')" type="image/png">
-    <img style="width:100px; height: 100px;" :srcset="row.value" :alt="row.item.name">
-</picture>
+             <img style="width:100px; height: 100px;" :srcset="row.value" :alt="row.item.name">
                 </template>
     </BTable>
     <h2 style="color: white;">Projects</h2>
@@ -64,6 +61,8 @@
 </BCol>
 </BRow>
 </BContainer>
+
+{{ import.meta.env.PROD }}
 </template>
 
 <script setup>
