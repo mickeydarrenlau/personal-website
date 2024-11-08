@@ -11,9 +11,5 @@
 import "../assets/main.css"
 import Desktop from '/src/components/Desktop.vue';
 import Mobile from '/src/components/Mobile.vue';
-let isMobile = false;
-import { ref, onMounted } from 'vue';
-onMounted( () => {
-isMobile = localStorage.mobile || window.navigator.maxTouchPoints > 1;
-})
+let isMobile = localStorage.mobile || window.navigator.maxTouchPoints > 1;
 </script>
