@@ -33,7 +33,7 @@
                     {{row.value}} 
                 </template>
                 <template #cell(artistname)="row">
-                    {{row.value}}
+                    {{textl(row.value)}}
                 </template>
                 <template #cell(devicename)="row">
                     {{row.value}}
@@ -95,6 +95,15 @@ const TableFieldStore = useTableFieldStore();
 
 const repos = ref([]);
 
+function textl(text) { 
+  if(text.length > 15){
+  let result = text.substr(0, 15);
+  result = result + " ..."
+  return result 
+  }
+  return text
+}
+    
 onMounted(async () => {
     const useridResponse = await fetch('https://discord-plex.darrenmc.dev/api/userid');
     PresenceStore.setUID(await useridResponse.text());
