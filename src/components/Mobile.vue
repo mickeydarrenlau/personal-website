@@ -12,7 +12,7 @@
             :title="PresenceStore.devicename"
             :img-src="PresenceStore.songimg"
             :img-alt="PresenceStore.songname"
-            style=" background-color: black; color: white;"
+            style=" background-color: black; color: white; flex: 1;"
         >
             <BCardText>
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
@@ -25,7 +25,7 @@
         
         <BCard
         title="Playback History"
-        style="background-color: black; color: white; align-self: right;"
+        style="background-color: black; color: white; align-self: right; flex: 1;"
         >
                 <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-sm'" responsive>
                 <template #cell(songimg)="row">
