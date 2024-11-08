@@ -22,6 +22,9 @@
         
     </BCard>
             </div>
+        &nbsp;
+        &nbsp;
+        &nbsp;
         <div class="right">
         
                 <h1 style="color: white;">Playback History</h1>
