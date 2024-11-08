@@ -19,7 +19,6 @@
             </BCardText>
         
     </BCard>
-    <div>
         
         <BCard
         title="Playback History"
@@ -44,7 +43,7 @@
                 
             </BTable>
         </BCard>
-            </div>
+
     </div>
     <h2 style="color: white;">Tech gadgets that I own</h2>
     <BTable show-empty :items="TechItems.items" style="width: 95%" :fields="TableFieldStore.tech_field" :table-class="'table-dark .th-lg'" responsive>
