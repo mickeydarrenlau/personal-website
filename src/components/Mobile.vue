@@ -25,7 +25,7 @@
         title="Playback History"
         style="background-color: black; color: white;"
         >
-                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="songs_field" :table-class="'table-dark .th-lg'" responsive>
+                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-lg'" responsive>
                 <template #cell(songimg)="row">
                     <img :alt="row.item.songname" :src="row.value" style="width: 70px; height: 70px;">
                 </template>
@@ -46,8 +46,14 @@
         </BCard>
             </div>
     </div>
+    <h2 style="color: white;">Tech gadgets that I own</h2>
+    <BTable show-empty :items="TechItems.items" style="width: 95%" :fields="TableFieldStore.tech_field" :table-class="'table-dark .th-lg'" responsive>
+        <template #cell(img)="row">
+                    <img :alt="row.item.name" :src="row.value" style="width:100px; height: 100px;">
+                </template>
+    </BTable>
     <h2 style="color: white;">Projects</h2>
-    <BTable show-empty :items="repos" style="width: 95%" :fields="repos_field" :table-class="'table-dark .th-lg'" responsive>
+    <BTable show-empty :items="repos" style="width: 95%" :fields="TableFieldStore.repos_field" :table-class="'table-dark .th-lg'" responsive>
         <template #cell(html_url)="row">
          <a :href="row.item.html_url" target="_blank">Github</a>
         </template>
@@ -65,6 +71,12 @@ import "../assets/main.css"
 import { usePresenceStore } from '/src/stores/PresenceStore.ts';
 const PresenceStore = usePresenceStore();
 
+import { useTechItems } from '@/stores/TechItemsStore';
+const TechItems = useTechItems();
+
+import { useTableFieldStore } from '@/stores/TableFieldStore';
+const TableFieldStore = useTableFieldStore();
+
 let userid = ''
     userid = await fetch('https://discord-plex.darrenmc.dev/api/userid')
     PresenceStore.setUID(await userid.text())
@@ -73,18 +85,6 @@ let appid = ''
     appid = await fetch('https://discord-plex.darrenmc.dev/api/appid')
     PresenceStore.setAID(await appid.text())
 
-let repos_field = [
-{ key: 'name', label: 'Name' },
-{ key: 'description', label: 'Description' },
-{ key: 'language', label: 'Language' },
-{ key: 'html_url', label: 'Link' }
-]
-
-const songs_field = [
-{ key: 'songimg', label: 'Cover Art' },
-{ key: 'songname', label: 'Song Name' },
-{ key: 'artistname', label: 'Artist' },
-]
 
 let play_history = await fetch('https://discord-plex.darrenmc.dev/api/prevsong')
 PresenceStore.setHistory(await play_history.json())

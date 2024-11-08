@@ -5,10 +5,14 @@
             <h1 style="color: white;">Welcome to my website</h1>
     <h2 style="color: white;">About Me</h2>
     <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
-    <h2 style="color: white;">Tech that I have</h2>
-    <BTable show-empty :items="tech" style="width: 95%" :fields="tech_field" :table-class="'table-dark .th-lg'" responsive/>
+    <h2 style="color: white;">Tech gadgets that I own</h2>
+    <BTable show-empty :items="TechItems.items" style="width: 95%" :fields="TableFieldStore.tech_field" :table-class="'table-dark .th-lg'" responsive>
+        <template #cell(img)="row">
+                    <img :alt="row.item.name" :src="row.value" style="width:100px; height: 100px;">
+                </template>
+    </BTable>
     <h2 style="color: white;">Projects</h2>
-    <BTable show-empty :items="repos" style="width: 95%" :fields="repos_field" :table-class="'table-dark .th-lg'" responsive>
+    <BTable show-empty :items="repos" style="width: 95%" :fields="TableFieldStore.repos_field" :table-class="'table-dark .th-lg'" responsive>
         <template #cell(html_url)="row">
          <a :href="row.item.html_url" target="_blank">Github</a>
         </template>
@@ -26,7 +30,7 @@
                 <h1 style="color:white;"> {{ PresenceStore.songname }} </h1>
                 <br>
                 <h1 style="color:white;"> Playback History </h1>
-                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="songs_field" :table-class="'table-dark .th-lg'" responsive>
+                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-lg'" responsive>
                 <template #cell(songimg)="row">
                     <img :alt="row.item.songname" :src="row.value" style="width: 70px; height: 70px;">
                 </template>
@@ -54,23 +58,18 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { usePresenceStore } from '/src/stores/PresenceStore.ts';
+import { useTechItems } from '@/stores/TechItemsStore';
+import { useTableFieldStore } from '@/stores/TableFieldStore';
 import { BTable } from 'bootstrap-vue-next';
 
+const TechItems = useTechItems();
+
 const PresenceStore = usePresenceStore();
+const TableFieldStore = useTableFieldStore();
+
+window.ll = PresenceStore
 
 const repos = ref([]);
-const repos_field = [
-    { key: 'name', label: 'Name' },
-    { key: 'description', label: 'Description' },
-    { key: 'language', label: 'Language' },
-    { key: 'html_url', label: 'Link' }
-];
-
-const songs_field = [
-    { key: 'songimg', label: 'Cover Art' },
-    { key: 'songname', label: 'Song Name' },
-    { key: 'artistname', label: 'Artist' },
-];
 
 onMounted(async () => {
     const useridResponse = await fetch('https://discord-plex.darrenmc.dev/api/userid');
