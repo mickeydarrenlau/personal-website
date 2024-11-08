@@ -65,7 +65,7 @@
 
 <style scoped>
     .left {
-  width: 10rem;
+  width: 20rem;
   display: table-cell;
 }
 .right {
