@@ -64,108 +64,94 @@
 </template>
 
 <script setup>
-import "../assets/main.css"
-
-
-
+import { ref, onMounted } from 'vue';
 import { usePresenceStore } from '/src/stores/PresenceStore.ts';
-const PresenceStore = usePresenceStore();
-
 import { useTechItems } from '@/stores/TechItemsStore';
+import { useTableFieldStore } from '@/stores/TableFieldStore';
+import { BTable } from 'bootstrap-vue-next';
+
 const TechItems = useTechItems();
 
-import { useTableFieldStore } from '@/stores/TableFieldStore';
+const PresenceStore = usePresenceStore();
 const TableFieldStore = useTableFieldStore();
 
-let userid = ''
-    userid = await fetch('https://discord-plex.darrenmc.dev/api/userid')
-    PresenceStore.setUID(await userid.text())
+window.ll = PresenceStore
 
-let appid = ''
-    appid = await fetch('https://discord-plex.darrenmc.dev/api/appid')
-    PresenceStore.setAID(await appid.text())
+const repos = ref([]);
 
+onMounted(async () => {
+    const useridResponse = await fetch('https://discord-plex.darrenmc.dev/api/userid');
+    PresenceStore.setUID(await useridResponse.text());
 
-let play_history = await fetch('https://discord-plex.darrenmc.dev/api/prevsong')
-PresenceStore.setHistory(await play_history.json())
+    const appidResponse = await fetch('https://discord-plex.darrenmc.dev/api/appid');
+    PresenceStore.setAID(await appidResponse.text());
 
-let repos = []
-    repos = await fetch('https://api.github.com/users/Darren-project/repos')
-    repos = await repos.json()
+    const playHistoryResponse = await fetch('https://discord-plex.darrenmc.dev/api/prevsong');
+    PresenceStore.setHistory(await playHistoryResponse.json());
 
-let webSocket = new WebSocket("wss://api.lanyard.rest/socket");
+    const reposResponse = await fetch('https://api.github.com/users/Darren-project/repos');
+    repos.value = await reposResponse.json();
 
-function reconnectWss() {
-clearInterval(PresenceStore.heartbeat_timer)
-webSocket = new WebSocket("wss://api.lanyard.rest/socket");
-}
+    let webSocket = new WebSocket("wss://api.lanyard.rest/socket");
 
-webSocket.onclose = (event) => {
-reconnectWss()
-}
+    function reconnectWss() {
+        clearInterval(PresenceStore.heartbeat_timer);
+        webSocket = new WebSocket("wss://api.lanyard.rest/socket");
+    }
 
-webSocket.onmessage = async (event) => {
-const data = JSON.parse(event.data);
-if (data.op === 1) {
-    let ht_int = data["d"]["heartbeat_interval"];
-    let htid = setInterval(() => {
-       try {
-        webSocket.send(
-            JSON.stringify({
-                op: 3,
-            })
-        );
-        console.log("Heartbeat sent");
-       } catch {
-         reconnectWss()
-       }
-    }, ht_int - 100);
-    PresenceStore.setHeartbeatTimer(htid)
-    console.log("Connected to Lanyard API")
-    webSocket.send(
-            JSON.stringify({
-                op: 2,
-                d: {
-                    subscribe_to_id: PresenceStore.user_id,
+    webSocket.onclose = () => {
+        reconnectWss();
+    };
+
+    webSocket.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+        if (data.op === 1) {
+            const ht_int = data.d.heartbeat_interval;
+            const htid = setInterval(() => {
+                try {
+                    webSocket.send(JSON.stringify({ op: 3 }));
+                    console.log("Heartbeat sent");
+                } catch {
+                    reconnectWss();
                 }
-            })
-    )
-}
-if (data.op === 0) {
-    let pre = data.d
-    let pre2 = pre["activities"]
-    let real = {}
-
-    let trip = false
-
-    for(let search in pre2){
-        if(!trip) {
-        if(pre2[search].application_id === PresenceStore.app_id){
-            real = pre2[search]
-            trip = true
+            }, ht_int - 100);
+            PresenceStore.setHeartbeatTimer(htid);
+            console.log("Connected to Lanyard API");
+            webSocket.send(JSON.stringify({
+                op: 2,
+                d: { subscribe_to_id: PresenceStore.user_id }
+            }));
         }
-    }
-    }
+        if (data.op === 0) {
+            const pre = data.d;
+            const pre2 = pre.activities;
+            let real = {};
+            let trip = false;
 
-    try {
-    let songimg = real["assets"]["large_image"]
-    if(songimg.substr(0,3) == "mp:") {
-        let whole = songimg.length
-        songimg = songimg.substr(3, whole)
-        songimg = "https://media.discordapp.net/" + songimg
-    } else {
-        songimg = "https://cdn.discordapp.com/app-assets/" + PresenceStore.app_id + "/" + songimg + ".png"
-    }
-    let songname = real["state"]
-    let devicename = real["details"]
-    PresenceStore.setPresence(songimg, songname, devicename);
-    console.log("Presence Updated");
-    let quickc = await fetch('https://discord-plex.darrenmc.dev/api/prevsong')
-    PresenceStore.setHistory(await quickc.json())
-    
-    } catch (error) {
-        console.log(error);
-    }
-}
-}
+            for (const search in pre2) {
+                if (!trip && pre2[search].application_id === PresenceStore.app_id) {
+                    real = pre2[search];
+                    trip = true;
+                }
+            }
+
+            try {
+                let songimg = real.assets.large_image;
+                if (songimg.startsWith("mp:")) {
+                    songimg = `https://media.discordapp.net/${songimg.slice(3)}`;
+                } else {
+                    songimg = `https://cdn.discordapp.com/app-assets/${PresenceStore.app_id}/${songimg}.png`;
+                }
+                const songname = real.state;
+                const devicename = real.details;
+                PresenceStore.setPresence(songimg, songname, devicename);
+                console.log("Presence Updated");
+                const quickc = await fetch('https://discord-plex.darrenmc.dev/api/prevsong');
+                PresenceStore.setHistory(await quickc.json());
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+});
 </script>
