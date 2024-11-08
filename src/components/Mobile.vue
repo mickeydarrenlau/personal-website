@@ -29,7 +29,7 @@
         style="background-color: black; color: white; align-self: right;"
         class="right"
         >
-                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-sm'" responsive>
+                <BTable show-empty :items="PresenceStore.play_history" style="" :fields="TableFieldStore.songs_field" :table-class="'table-dark .th-lg'" responsive>
                 <template #cell(songimg)="row">
                     <img :alt="row.item.songname" :src="row.value" style="width: 70px; height: 70px;">
                 </template>
