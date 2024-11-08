@@ -70,11 +70,11 @@
 
 <style scoped>
     .left {
-  width: 70%;
+  width: auto;
   display: table-cell;
 }
 .right {
-  width: 29%;
+  width: auto;
 
   display: table-cell;
 }
