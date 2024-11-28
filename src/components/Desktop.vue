@@ -72,13 +72,13 @@ window.ll = PresenceStore
 const repos = ref([]);
 
 onMounted(async () => {
-    const useridResponse = await fetch('https://discord-plex.darrenmc.dev/api/userid');
+    const useridResponse = await fetch('https://subsonic-discord.darrenmc.dev/api/userid');
     PresenceStore.setUID(await useridResponse.text());
 
-    const appidResponse = await fetch('https://discord-plex.darrenmc.dev/api/appid');
+    const appidResponse = await fetch('https://subsonic-discord.darrenmc.dev/api/appid');
     PresenceStore.setAID(await appidResponse.text());
 
-    const playHistoryResponse = await fetch('https://discord-plex.darrenmc.dev/api/prevsong');
+    const playHistoryResponse = await fetch('https://subsonic-discord.darrenmc.dev/api/prevsong');
     PresenceStore.setHistory(await playHistoryResponse.json());
 
     const reposResponse = await fetch('https://api.github.com/users/Darren-project/repos');
@@ -138,7 +138,7 @@ onMounted(async () => {
                 const devicename = real.details;
                 PresenceStore.setPresence(songimg, songname, devicename);
                 console.log("Presence Updated");
-                const quickc = await fetch('https://discord-plex.darrenmc.dev/api/prevsong');
+                const quickc = await fetch('https://subsonic-discord.darrenmc.dev/api/prevsong');
                 PresenceStore.setHistory(await quickc.json());
             } catch (error) {
                 console.log(error);
