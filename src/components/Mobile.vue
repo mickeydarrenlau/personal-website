@@ -98,6 +98,7 @@ import { useTechItems } from '@/stores/TechItemsStore';
 import { useTableFieldStore } from '@/stores/TableFieldStore';
 import { BTable } from 'bootstrap-vue-next';
 import { useAboutStore } from '@/stores/AboutStore';
+import { useSocialStore } from '@/stores/SocialStore';
 
 const TechItems = useTechItems();
 
@@ -105,6 +106,7 @@ const PresenceStore = usePresenceStore();
 const TableFieldStore = useTableFieldStore();
 
 const AboutStore = useAboutStore();
+const SocialStore =  useSocialStore();
 
 
 const repos = ref([]);
