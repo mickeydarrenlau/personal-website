@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+
+// Max per array 12
+
 export const useSocialStore = defineStore('SocialStore', {
     state: () => ({
       item: [
@@ -14,8 +17,7 @@ export const useSocialStore = defineStore('SocialStore', {
             { link: 'https://www.reddit.com/user/RoundAccident3943', img: 'reddit.png'},
             { link: 'mailto:darrenwjlau@gmail.com', img: 'gmail.png' },
             { link: 'https://www.instagram.com/mickeydarrenlau/', img: 'instagram.ico' },
-            { link: 'https://www.reddit.com/user/RoundAccident3943', img: 'reddit.png'},
-            { link: 'mailto:darrenwjlau@gmail.com', img: 'gmail.png' },
+            { link: 'https://www.reddit.com/user/RoundAccident3943', img: 'reddit.png'}
         ],
       ]
      }),
