@@ -5,12 +5,15 @@
             <h1 style="color: white;">Welcome to my website</h1>
     <h2 style="color: white;"> About Me</h2>
     <h3 style="color: white;">{{ AboutStore.about_message }}</h3>
-    <div style="border:1px solid white; border-radius: 7px; width:min-content">
-        <div v-for="item in SocialStore.items" style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px;">
-            <b-button  style="height: 80px;" variant="dark" :href="item.link" target="_blank">
-                <img :src="item.img" style="width: 30px; height: 30px;">
-                <h6>{{  item.name }}</h6>
-            </b-button>
+    <h2 style="color: white;">My social media</h2>
+    <div style="border:1px solid white; border-radius: 7px; display: inline-block; padding: 10px; width:max-content; flex-wrap: nowrap; ">
+        <div v-for="(items, index) in SocialStore.items" :key="index" >
+            <div style="display: flex; align-items: center; padding-right: 5px;">
+                <b-button v-for="(item, idx) in items" :key="idx" variant="dark" :href="item.link" target="_blank" style="display: flex; align-items: center; margin-right: 10px;">
+                    <img :src="item.img" style="width: 30px; height: 30px; margin-right: 5px;">
+                </b-button>
+            </div>
+            <br>
         </div>
     </div>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
