@@ -4,7 +4,7 @@
         <BCol>
             <h1 style="color: white;">Welcome to my website</h1>
     <h2 style="color: white;"> About Me</h2>
-    <h3 style="color: white;">I am a 16 year old student from Malaysia that likes to create interesting projects.</h3>
+    <h3 style="color: white;">{{ AboutStore.about_message }}</h3>
     <h1 style="color: white;">Here's what am I listening to currently</h1>
     <div class="wrapper" style="display: flex;">
         <div class="left">
@@ -89,11 +89,14 @@ import { usePresenceStore } from '/src/stores/PresenceStore.ts';
 import { useTechItems } from '@/stores/TechItemsStore';
 import { useTableFieldStore } from '@/stores/TableFieldStore';
 import { BTable } from 'bootstrap-vue-next';
+import { useAboutStore } from '@/stores/AboutStore';
 
 const TechItems = useTechItems();
 
 const PresenceStore = usePresenceStore();
 const TableFieldStore = useTableFieldStore();
+
+const AboutStore = useAboutStore();
 
 
 const repos = ref([]);

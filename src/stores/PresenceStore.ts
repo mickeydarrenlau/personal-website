@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-export const usePresenceStore = defineStore('Presence', {
+export const usePresenceStore = defineStore('PresenceStore', {
     state: () => ({ songimg: 0, songname: '', devicename: '', history: [], uid: "", aid: "", heartbeat_timer_id: 0 }),
     getters: {
       img: (state) => state.songimg,
